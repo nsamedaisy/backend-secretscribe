@@ -6,6 +6,10 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ProfileController } from './profile/profile.controller';
 
+import { MessagesController } from './messages/messages.controller';
+import { MessagesService } from './messages/messages.service';
+import { Message, MessageSchema } from './messages/message.schema';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -14,9 +18,10 @@ import { ProfileController } from './profile/profile.controller';
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     AuthModule,
+    MongooseModule.forFeature([{ name: Message.name, schema: MessageSchema }]),
   ],
-  controllers: [AppController, ProfileController],
-  providers: [AppService],
+  controllers: [AppController, ProfileController, MessagesController],
+  providers: [AppService, MessagesService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
