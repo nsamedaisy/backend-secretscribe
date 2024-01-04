@@ -1,14 +1,13 @@
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { CreateMessageDto } from './create-message.dto';
 import { MessagesService } from './messages.service';
-import { Message } from '../model/message.model';
-import { Model } from 'mongoose';
+import { MessageModel } from '../model/message.model';
 
 @Controller('api/messages')
 export class MessagesController {
   constructor(
     private readonly messagesService: MessagesService,
-    private readonly messageModel: Model<Message>,
+    private readonly messageModel: typeof MessageModel,
   ) {}
 
   // @Post()

@@ -5,10 +5,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ProfileController } from './profile/profile.controller';
-
 import { MessagesController } from './messages/messages.controller';
 import { MessagesService } from './messages/messages.service';
 import { Message, MessageSchema } from './messages/message.schema';
+import { MessageModel } from './model/message.model';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { Message, MessageSchema } from './messages/message.schema';
     MongooseModule.forFeature([{ name: Message.name, schema: MessageSchema }]),
   ],
   controllers: [AppController, ProfileController, MessagesController],
-  providers: [AppService, MessagesService],
+  providers: [AppService, MessagesService, MessageModel],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
