@@ -1,7 +1,7 @@
-
 import { Controller, Post, Body, Get } from '@nestjs/common';
 import { CreateMessageDto } from './create-message.dto';
 import { MessagesService } from './messages.service';
+import { Message } from '../model/message.model';
 
 @Controller('api/messages')
 export class MessagesController {
@@ -38,7 +38,20 @@ export class MessagesController {
       throw error;
     }
   }
+
+  @Get('load-more')
+  async loadMoreMessages(): Promise<Message[]> {
+    const offset = 10; // Adjust the offset based on the number of messages already loaded
+    const limit = 10; // Adjust the number of messages to load
+
+    // Retrieve additional messages using the MessagesService
+    const additionalMessages = await this.messagesService.getAdditionalMessages(offset, limit);
+
+    return additionalMessages;
+  }
 }
+
+
 
    // @Post()
   // async createMessage(@Body() createMessageDto: CreateMessageDto) {
@@ -69,20 +82,3 @@ export class MessagesController {
 //   }
 // }
 
-
-
-
-
-// import { Controller, Post, Body } from '@nestjs/common';
-// import { CreateMessageDto } from './create-message.dto';
-// import { MessagesService } from './messages.service';
-
-// @Controller('api/messages')
-// export class MessagesController {
-//   constructor(private readonly messagesService: MessagesService) {}
-
-//   @Post()
-//   async createMessage(@Body() createMessageDto: CreateMessageDto) {
-//     await this.messagesService.createMessage(createMessageDto);
-//   }
-// }
