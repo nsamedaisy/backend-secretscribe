@@ -7,8 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProfileController } from './profile/profile.controller';
 import { MessagesController } from './messages/messages.controller';
 import { MessagesService } from './messages/messages.service';
-import { Message, MessageSchema } from './messages/message.schema';
-import { MessageModel } from './model/message.model';
+import { Message, MessageSchema } from './model/message.model';
 
 @Module({
   imports: [
@@ -21,7 +20,7 @@ import { MessageModel } from './model/message.model';
     MongooseModule.forFeature([{ name: Message.name, schema: MessageSchema }]),
   ],
   controllers: [AppController, ProfileController, MessagesController],
-  providers: [AppService, MessagesService, MessageModel],
+  providers: [AppService, MessagesService],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
@@ -38,3 +37,4 @@ export class AppModule {
       .forRoutes('*');
   }
 }
+// import { Message, MessageSchema } from './messages/message.schema';

@@ -1,13 +1,15 @@
-import { Schema, model, Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export interface Message extends Document {
+export type MessageDocument = Message & Document;
+
+@Schema()
+export class Message {
+  @Prop({ required: true })
   content: string;
-  createdAt: Date;
+
+  @Prop({ required: true })
+  timeSent: string;
 }
 
-const messageSchema = new Schema<Message>({
-  content: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now }
-});
-
-export const MessageModel = model<Message>('Message', messageSchema);
+export const MessageSchema = SchemaFactory.createForClass(Message);
