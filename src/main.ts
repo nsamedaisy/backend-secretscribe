@@ -23,6 +23,6 @@ async function bootstrap() {
   app.use(cors())
 
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(PORT).then(() => console.log(`\nserver running on port ${PORT}`));
+  await app.listen(PORT).then(() => console.log(`\nserver running on port and ${PORT}`));
 }
 bootstrap();
