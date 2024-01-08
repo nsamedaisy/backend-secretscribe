@@ -22,9 +22,13 @@ export class MessagesService {
   }
 
   async getAdditionalMessages(offset: number, limit: number): Promise<Message[]> {
-    // Retrieve all the remaining messages after the specified offset
-    const messages = await this.messageModel.find().skip(offset).limit(limit).exec();
-    return messages;
+    const additionalMessages = await this.messageModel
+      .find()
+      .skip(offset)
+      .limit(limit)
+      .exec();
+
+    return additionalMessages;
   }
 }
 

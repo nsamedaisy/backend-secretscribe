@@ -9,7 +9,7 @@ export class MyGateway {
   @WebSocketServer()
   server: Server;
 
-  constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) {}
+  constructor(@InjectModel(Message.name) private readonly messageModel: Model<Message>) {}
 
   // ... other methods ...
 

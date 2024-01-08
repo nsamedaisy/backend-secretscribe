@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Query } from '@nestjs/common';
 import { CreateMessageDto } from './create-message.dto';
 import { MessagesService } from './messages.service';
 import { Message } from '../model/message.model';
@@ -39,16 +39,19 @@ export class MessagesController {
     }
   }
 
-  @Get('load-more')
-  async loadMoreMessages(): Promise<Message[]> {
-    const offset = 10; // Adjust the offset based on the number of messages already loaded
-    const limit = 10; // Adjust the number of messages to load
-
-    // Retrieve additional messages using the MessagesService
-    const additionalMessages = await this.messagesService.getAdditionalMessages(offset, limit);
-
+  @Get('load')
+  async loadMoreMessages(
+    @Query('offset') offset: number,
+    @Query('limit') limit: number,
+  ): Promise<Message[]> {
+    const additionalMessages = await this.messagesService.getAdditionalMessages(
+      offset,
+      limit,
+    );
+  
     return additionalMessages;
   }
+
 }
 
 
